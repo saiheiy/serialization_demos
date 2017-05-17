@@ -1,0 +1,26 @@
+git  clone -v bbgithub:syeung80/serialization_and_transport_experiments.git
+curl -k -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim 
+mv /media/sf_WindowsDownloads/zeromq-4.2.1.tar.gz .
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX:PATH=/home/syeung80/git/serialization_and_transport_experiments/install/flatbuffers
+PREFIX=/home/syeung80/git/serialization_and_transport_experiments/install/flatbuffers make -j4
+mvn archetype:generate -DgroupId=com.saihei.examples -DartifactId=fb-examples -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+mvn archetype:generate -DgroupId=com.saihei.demo -DartifactId=fb-demo -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false -DarchetypeCatalog=remote
+mvn clean install
+java -cp target/fb-demo-1.0-SNAPSHOT.jar com.saihei.demo.App
+. ~/git/serialization_and_transport_experiments/env.sh 
+java -cp target/fb-demo-1.0-SNAPSHOT-jar-with-dependencies.jar com.saihei.demo.Example
+java -cp target/fb-demo-1.0-SNAPSHOT-jar-with-dependencies.jar com.saihei.demo.ZmqFbPublisher 5
+nc -l -p 60610 localhost
+netstat -lntu | grep "60610"
+flatc --cpp /home/syeung80/git/serialization_and_transport_experiments/flatbuffers/schema/position.fbs 
+g++ -o fb_sub fb_subscriber.cpp -std=c++11 -I. -I$ROOT/install/flatbuffers/include -I$ROOT/install/zeromq-4.2.1/include -L../../install/zeromq-4.2.1/lib -lzmq
+g++ -o fb_sub fb_subscriber.cpp -std=c++11 -I. -I$ROOT/install/flatbuffers/include -I$ROOT/install/zeromq-4.2.1/include  ../../install/zeromq-4.2.1/lib/libzmq.a   -lpthread
+g++ -std=c++11 -o fb_write_to_file fb_write_to_file.cpp -I. -I../../install/flatbuffers/include
+g++ -o fb_sub fb_subscriber.cpp -std=c++11 -I. -I../../install/flatbuffers/include -I../..//install/zeromq-4.2.1/include  ../../install/zeromq-4.2.1/lib/libzmq.a   -lpthread
+./configure --prefix=/home/syeung80/git/serialization_and_transport_experiments/install/protobuf-3.0.0
+make
+../../install/protobuf-3.0.0/bin/protoc ../schema/position.proto --cpp_out=. -I=../schema
+g++ -o sub demo_subscriber.cpp position.pb.cc -I. `PKG_CONFIG_PATH=../../install/protobuf-3.0.0/lib/pkgconfig pkg-config --cflags --libs --static protobuf` //build with dynamic libraries
+g++ -o pub demo_publisher.cpp position.pb.cc -I. -I/home/syeung80/git/serialization_and_transport_experiments/install/protobuf-3.0.0/include /home/syeung80/git/serialization_and_transport_experiments/install/protobuf-3.0.0/lib/libprotobuf.a -pthread 
+g++ -o pb_perf pb_perf.cpp position.pb.cc -std=c++11 -I. -I/home/syeung80/git/serialization_and_transport_experiments/install/protobuf-3.0.0/include /home/syeung80/git/serialization_and_transport_experiments/install/protobuf-3.0.0/lib/libprotobuf.a -pthread 
+g++ -o fb_zmq_perf fb_zmq_perf.cpp -std=c++11 -I. -I../../install/flatbuffers/include -I../../install/zeromq-4.2.1/include  ../../install/zeromq-4.2.1/lib/libzmq.a   -lpthread
