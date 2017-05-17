@@ -1,0 +1,2 @@
+protoc -I=. --cpp_out=. examples.proto
+g++ -I/opt/bb/include/ main.cpp

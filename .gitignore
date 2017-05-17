@@ -1,0 +1,11 @@
+*.fbo
+*.swp
+*so
+*.so
+*.a
+*.la
+*.fifo
+*.temp
+*.tmp
+install
+packages

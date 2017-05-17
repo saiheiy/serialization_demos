@@ -1,0 +1,11 @@
+syntax = "proto3";
+package demo;
+
+message Position{
+    int64 positionId = 1;
+    string secName = 2;
+    int32 accountId = 3;
+    double posQty = 4;
+    double avgCost = 5;
+    double mv = 6; 
+}

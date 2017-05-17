@@ -1,0 +1,14 @@
+//Example IDL file for position schema
+
+namespace Ps;
+
+table Position {
+    positionId:long = 0;
+    secName:string; //non-scalar (string/vector/table) fields default to NULL when not present
+    accountId:int = 0;
+    posQty:double = 0.0;
+    avgCost:double = 0.0;
+    mv:double = 0.0;
+}
+
+root_type Position;
