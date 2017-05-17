@@ -9,3 +9,5 @@
 *.tmp
 install
 packages
+env.sh
+*.out
