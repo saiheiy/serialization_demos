@@ -13,6 +13,10 @@ const double mv = 25954.00;
 
 class Encoder{
 public:
+    Encoder()
+        :builder(100)
+    {}
+    
     void encode(){
         builder.Clear();
         auto pos_offset = Ps::CreatePositionDirect(

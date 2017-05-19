@@ -63,8 +63,6 @@ int getSize(){
     return enc.size();
 }
 
-
-
 bool fileExists(const char* file){
     struct stat buf;
     return (stat(file, &buf) == 0);
@@ -85,16 +83,11 @@ void run(int num_times, bool do_debug){
         std::runtime_error("fork failed");
     }
     else{
-        //auto time3 = std::chrono::steady_clock::now();
-        //std::time_t ttp0 = std::chrono::steady_clock::to_time_t(time0);
-        //std::cout << "time0: " << ttp0  <<  std::endl;
         auto t1 = std::chrono::high_resolution_clock::now();
         publisher(num_times, do_debug);
         pid_t r = wait(NULL);
         auto t2 = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(t2 -t1).count();
-        //std::time_t ttp1 = std::chrono::steady_clock::to_time_t(time1);
-        //std::cout << "time1: " << ttp1  <<  std::endl;
         if(r == -1){
             std::cout << "child returned early?\n";
         }
