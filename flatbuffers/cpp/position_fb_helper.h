@@ -43,7 +43,7 @@ private:
 };
 
 const Ps::Position *decode(void* buffer){
-    Ps::GetPosition(buffer);
+    return Ps::GetPosition(buffer);
 }
 
 bool verify(void* buffer, int size){
@@ -59,4 +59,5 @@ std::ostream& operator<<(std::ostream& os, const Ps::Position& dpos){
         << dpos.posQty() << ","
         << dpos.avgCost() << ","
         << dpos.mv() << "\n";
+    return os;
 }
