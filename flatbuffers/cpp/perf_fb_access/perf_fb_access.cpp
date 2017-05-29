@@ -5,9 +5,12 @@
 #include <stdexcept>
 #include <chrono>
 #include <sstream>
+#include <vector>
 
 int main(){
     std::ifstream ifs("pos.fbo", std::ios::binary);
+    if(!ifs.good())
+        throw std::runtime_error("file does not exist");
     ifs.seekg(0, std::ios::end);
     std::streamsize size = ifs.tellg();
     ifs.seekg(0, std::ios::beg);

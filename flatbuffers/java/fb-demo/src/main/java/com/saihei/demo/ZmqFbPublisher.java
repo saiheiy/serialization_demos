@@ -14,7 +14,7 @@ public class ZmqFbPublisher {
 
         ZMQ.Context context = ZMQ.context(1);
         ZMQ.Socket socket = context.socket(ZMQ.PUSH);
-        socket.connect("tcp://localhost:60610");
+        socket.connect("tcp://127.0.0.1:60610");
 
         for(int ii=0; ii < numTimes; ii++){
             FlatBufferBuilder builder = new FlatBufferBuilder();

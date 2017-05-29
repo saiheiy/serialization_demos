@@ -40,7 +40,7 @@ private:
 };
 
 const foobar::FooBarContainer *decode(void* buffer){
-    foobar::GetFooBarContainer(buffer);
+    return foobar::GetFooBarContainer(buffer);
 }
 
 bool verify(void* buffer, int size){
@@ -70,4 +70,5 @@ std::ostream& operator<<(std::ostream& os, const foobar::FooBarContainer& dpos){
             << foo.prefix() << "], ";
     }
     os << "\n";
+    return os;
 }

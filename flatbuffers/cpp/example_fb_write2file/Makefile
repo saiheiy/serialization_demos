@@ -3,14 +3,14 @@ RM=rm -f
 CPPFLAGS=-std=c++11
 INCFLAGS=-I. -I../../../install/flatbuffers/include -I../headers
 LDFLAGS=
-OBJS=perf_fb_foobar.o
+OBJS=fb_write_to_file.o
 
-all: perf_fb_foobar.tsk int_clean
+all: fb_write_to_file.tsk int_clean
 
-perf_fb_foobar.tsk: $(OBJS) 
+fb_write_to_file.tsk: $(OBJS) 
 	$(CXX) -o $@ $^ $(LDFLAGS) 
 
-perf_fb_foobar.o: perf_fb_foobar.cpp
+fb_write_to_file.o: fb_write_to_file.cpp
 	$(CXX) -c $(CPPFLAGS) $< $(INCFLAGS)
 
 .PHONY: clean int_clean
